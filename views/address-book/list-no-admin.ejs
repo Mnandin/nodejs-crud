@@ -1,0 +1,61 @@
+<%- include("../parts/html-head") %> <%- include("../parts/navbar") %>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-6">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <% for(let i = page-5; i <= page+5; i++) if(i>=1 && i<=totalPages) {
+          const newQuery = {...query, page: i} %>
+
+          <li class="page-item <%= i === page ? 'active' : '' %>">
+            <a class="page-link" href="?<%= new URLSearchParams(newQuery) %>"
+              ><%= i %></a
+            >
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+    <div class="col-6">
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="keyword"
+          value="<%= query.keyword ? query.keyword : '' %>"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Birthday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let r of rows) { %>
+          <tr>
+            <td><%= r.sid %></td>
+            <td><%= r.name %></td>
+            <td><%= r.email %></td>
+            <td><%= r.mobile %></td>
+            <td><%= r.birthday %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include("../parts/scripts") %>
+<%- include("../parts/html-foot") %>

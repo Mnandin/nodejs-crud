@@ -1,0 +1,82 @@
+<%- include("parts/html-head") %>
+<%- include("parts/navbar") %>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="card mt-4" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Login</h5>
+                  <form name="form1" onsubmit="sendData(event)">
+                    <div class="mb-3">
+                      <label for="account" class="form-label">Email address</label>
+                      <input type="text" class="form-control" name="account" id="account">
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<%- include("parts/scripts") %>
+<script>
+    async function sendData(e){
+        e.preventDefault()
+
+        const fd = new FormData(document.form1)
+
+        
+
+
+        // 1st -  form data send multiform/form-data
+        // const r = await fetch('/login', {
+        //     method: 'post', 
+        //     body: fd
+        // })
+        // const data = await r.json()
+        // console.log(data);
+
+        // 2nd -  send a json format
+        // const dataObj = {}
+        // for(let [k, v] of fd.entries()){
+        //     dataObj[k] = v;
+        // }
+
+        // const r = await fetch('/login', {
+        //     method: 'post', 
+        //     body: JSON.stringify(dataObj),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        // const data = await r.json()
+        // console.log(data);
+
+        const usp = new URLSearchParams(fd)
+         const r = await fetch('/login', {
+            method: 'post', 
+            body: usp.toString(),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        const data = await r.json()
+        console.log({data});
+        if(data.success){
+          const usp = new URLSearchParams(location.search)
+          if(usp.get('u')){
+            location.href = usp.get('u')
+          } else {
+            location.href = "/"
+          }
+        } else {
+          alert(data.error || "Account or password is wrong")
+        }
+
+    }
+</script>
+<%- include("parts/html-foot") %>
