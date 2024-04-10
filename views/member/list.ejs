@@ -41,7 +41,6 @@
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
             <th scope="col">Birthday</th>
-            <th scope="col">Address</th>
             <th><i class="fa-solid fa-pen-to-square"></i></th>
           </tr>
         </thead>
@@ -53,14 +52,13 @@
                 <i class="fa-solid fa-trash"></i>
               </a>
             </th>
-            <td><%= r.sid %></td>
+            <td><%= r.id %></td>
             <td><%= r.name %></td>
             <td><%= r.email %></td>
-            <td><%= r.mobile %></td>
+            <td><%= r.phone %></td>
             <td><%= r.birthday %></td>
-            <td><%= r.address %></td>
             <th>
-              <a href="/address-book/edit/<%= r.sid %>"
+              <a href="/member/edit/<%= r.id %>"
                 ><i class="fa-solid fa-pen-to-square"></i></a>
             </th>
           </tr>
