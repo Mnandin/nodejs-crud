@@ -24,7 +24,9 @@
           placeholder="Search"
           aria-label="Search"
           name="keyword"
+          id="keyword"
           value="<%= query.keyword ? query.keyword : '' %>"
+          oninput="resetList()"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -48,7 +50,7 @@
           <% for(let r of rows) { %>
           <tr>
             <th>
-              <a href="javascript: removeItem(<%= r.sid %>)">
+              <a href="javascript: removeItem(<%= r.id %>)">
                 <i class="fa-solid fa-trash"></i>
               </a>
             </th>
@@ -59,7 +61,8 @@
             <td><%= r.birthday %></td>
             <th>
               <a href="/member/edit/<%= r.id %>"
-                ><i class="fa-solid fa-pen-to-square"></i></a>
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></a>
             </th>
           </tr>
           <% } %>
@@ -70,16 +73,35 @@
 </div>
 <%- include("../parts/scripts") %>
 <script>
-  const removeItem = (sid) => {
-    if (confirm(`Do you want to delete ${sid}'s information?`)) {
-      fetch(`address-book/${sid}`, {
-        method: "delete",
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          location.reload();
-        });
+  const resetList = () => {
+    let value = document.querySelector("#keyword").value.trim();
+    if(value === ''){
+      location.href = '/member';
     }
+  };
+  const removeItem = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to revert the changes!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((willEdit) => {
+      if (willEdit.isConfirmed) {
+        fetch(`member/${id}`, {
+          method: "delete",
+        })
+          .then((r) => r.json())
+          .then((data) => {
+            Swal.fire({
+              text: "Deleted successfully",
+              icon: "success",
+            }).then(() => {
+              location.reload();
+            });
+          });
+      }
+    });
   };
 </script>
 <%- include("../parts/html-foot") %>

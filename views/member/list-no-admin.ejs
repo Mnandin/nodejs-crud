@@ -31,23 +31,24 @@
   </div>
   <div class="row">
     <div class="col">
-      <table class="table table-bordered table-striped">
+      <table class="table">
         <thead>
           <tr>
-            <th>編號</th>
-            <th>姓名</th>
-            <th>EMAIL</th>
-            <th>手機</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Birthday</th>
           </tr>
         </thead>
         <tbody>
           <% for(let r of rows) { %>
           <tr>
-
-            <td><%= r.sid %></td>
+            <td><%= r.id %></td>
             <td><%= r.name %></td>
             <td><%= r.email %></td>
-            <td><%= r.mobile %></td>
+            <td><%= r.phone %></td>
+            <td><%= r.birthday %></td>
           </tr>
           <% } %>
         </tbody>

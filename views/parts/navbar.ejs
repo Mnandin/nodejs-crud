@@ -24,15 +24,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link <%= pageName==="json-sales" ? "active" : "" %>" href="/json-sales">json-sales</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link <%= pageName==="mb-list" ? "active" : "" %>" 
             href="/member">Member list</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%= pageName==="ab-add" ? "active" : "" %>" 
-            href="/address-book/add">Add new member</a>
+            <a class="nav-link <%= pageName==="mb-add" ? "active" : "" %>" 
+            href="/member/add">Add new member</a>
           </li>
 
         </ul>
@@ -40,7 +37,7 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
           <% if(session && session.admin) {  %>
             <li class="nav-item">
-              <a class="nav-link"><%= session.admin.nickname %></a>
+              <a class="nav-link"><%= session.admin.username %></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" 
@@ -50,14 +47,8 @@
             <li class="nav-item">
               <a class="nav-link <%= pageName==="login" ? "active" : "" %>" href="/login?u=<%= originalUrl %>">登入</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link <%= pageName==="register" ? "active" : "" %>" 
-              href="/register">註冊</a>
-            </li>
           <% } %>
-
         </ul>
-
       </div>
     </div>
   </nav>
