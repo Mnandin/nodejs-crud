@@ -20,9 +20,10 @@
         <input
           class="form-control me-2"
           type="search"
-          placeholder="Search"
+          placeholder="Search name or phone"
           aria-label="Search"
           name="keyword"
+          oninput="resetList()"
           value="<%= query.keyword ? query.keyword : '' %>"
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -57,5 +58,12 @@
   </div>
 </div>
 <%- include("../parts/scripts") %>
-
+<script>
+  const resetList = () => {
+    let value = document.querySelector("#keyword").value.trim();
+    if(value === ''){
+      location.href = '/member';
+    }
+  };
+  </script>
 <%- include("../parts/html-foot") %>

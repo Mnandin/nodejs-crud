@@ -19,7 +19,7 @@ app.use(express.json());
 const corsOptions = {
   credentials: true,
   origin: (origin, callback)=>{
-    console.log({origin});
+    // console.log({origin});
     callback(null, true);
   }
 }
@@ -71,7 +71,7 @@ app.post("/login", async (req, res) => {
     return res.json(output);
   }
   account = account.trim();
-  password = password.trim();
+  password = password.trim().toString();
 
   const sql = "SELECT * FROM mb_team_member WHERE user_name=?";
   const [rows] = await db.query(sql, [account]);
@@ -83,18 +83,23 @@ app.post("/login", async (req, res) => {
     return res.json(output);
   }
   const row = rows[0];
-
-  const result = await bcrypt.compare(password, row.password);
-  if(result){
-    output.success = true;
-    req.session.admin = {
-      id: row.id,
-      username: account,
-    };
-  } else {
-    output.error = "Account or password is wrong";
-    output.code = 450;
+  console.log(row, password, row.password)
+  try {
+    const result = await bcrypt.compare(password, row.password);
+    if(result){
+      output.success = true;
+      req.session.admin = {
+        id: row.id,
+        username: account,
+      };
+    } else {
+      output.error = "Account or password is wrong";
+      output.code = 450;
+    }
+  } catch (ex) {
+    console.log(ex);
   }
+  
   res.json(output);
 });
 
