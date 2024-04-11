@@ -83,7 +83,6 @@ app.post("/login", async (req, res) => {
     return res.json(output);
   }
   const row = rows[0];
-  console.log(row, password, row.password)
   try {
     const result = await bcrypt.compare(password, row.password);
     if(result){
