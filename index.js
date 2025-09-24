@@ -84,7 +84,7 @@ app.post("/login", async (req, res) => {
   }
   const row = rows[0];
   try {
-    const result = await bcrypt.compare(password, row.password);
+    const result = await bcrypt.compare(password, row.password_hash);
     if(result){
       output.success = true;
       req.session.admin = {
@@ -122,7 +122,8 @@ app.use((req, res) => {
   res.status(404).send(`<h2>404 走錯路了</h2>`);
 });
 
-const port = process.env.WEB_PORT || 3002;
+// const port = process.env.WEB_PORT || 3002;
+const port = 3002;
 app.listen(port, () => {
   console.log(`Server started at ${port}`);
 });
