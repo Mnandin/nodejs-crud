@@ -122,8 +122,7 @@ app.use((req, res) => {
   res.status(404).send(`<h2>404 走錯路了</h2>`);
 });
 
-// const port = process.env.WEB_PORT || 3002;
-const port = 3002;
+const port = process.env.WEB_PORT || 3000;
 app.listen(port, () => {
   console.log(`Server started at ${port}`);
 });
